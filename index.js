@@ -1,13 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-
 const authRoutes  = require("./auth");
 const menuRoutes  = require("./menu");
 const cartRoutes  = require("./cart");
 const orderRoutes = require("./orders");
+const store = require("./store");
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
@@ -23,11 +22,11 @@ app.use("/api/orders", orderRoutes);
 
 app.get("/health", (req, res) => res.json({ status: "ok", service: "AB Food Service API" }));
 
+app.get("/api/admin/orders", (req, res) => res.json(store.orders));
+app.get("/api/admin/users",  (req, res) => res.json(store.users));
+
 app.use((req, res) => res.status(404).json({ error: `Route ${req.method} ${req.path} not found` }));
-app.get("/api/admin/orders", (req, res) => {
-  const store = require("./store");
-  res.json(store.orders);
-})
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).json({ error: err.message || "Internal server error" });

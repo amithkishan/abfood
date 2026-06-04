@@ -24,7 +24,10 @@ app.get("/health", (req, res) => res.json({ status: "ok", service: "AB Food Serv
 
 app.get("/api/admin/orders", (req, res) => res.json(store.orders));
 app.get("/api/admin/users",  (req, res) => res.json(store.users));
-
+const path = require("path");
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
 app.use((req, res) => res.status(404).json({ error: `Route ${req.method} ${req.path} not found` }));
 
 app.use((err, req, res, next) => {

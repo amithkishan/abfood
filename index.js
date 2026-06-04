@@ -24,7 +24,10 @@ app.use("/api/orders", orderRoutes);
 app.get("/health", (req, res) => res.json({ status: "ok", service: "AB Food Service API" }));
 
 app.use((req, res) => res.status(404).json({ error: `Route ${req.method} ${req.path} not found` }));
-
+app.get("/api/admin/orders", (req, res) => {
+  const store = require("./store");
+  res.json(store.orders);
+})
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).json({ error: err.message || "Internal server error" });

@@ -1,7 +1,7 @@
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
-const store   = require("../models/store");
-const { authenticate } = require("../middleware/jwt");
+const store   = require("./store");
+const { authenticate } = require("./jwt");
 
 const router = express.Router();
 const DELIVERY_FEE = 49;

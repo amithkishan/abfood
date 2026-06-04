@@ -1,5 +1,5 @@
 const express = require("express");
-const store   = require("../models/store");
+const store   = require("./store");
 const router  = express.Router();
 
 const VALID_CATEGORIES = ["burgers", "pizza", "sushi", "bowls", "pasta", "desserts", "drinks"];
